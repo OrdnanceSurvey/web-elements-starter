@@ -1,0 +1,42 @@
+{
+  "name": "web-elements-starter",
+  "version": "0.0.1",
+  "description": "Angular1 starter application, with OS Elements and ngMaterial1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrdnanceSurvey/web-elements-starter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OrdnanceSurvey/web-elements-starter/issues"
+  },
+  "homepage": "https://github.com/OrdnanceSurvey/web-elements-starter#readme",
+  "dependencies": {
+    "angular": "^1.4.8",
+    "angular-animate": "^1.4.8",
+    "angular-aria": "^1.4.8",
+    "angular-component": "0.0.3",
+    "angular-material": "^1.0.1",
+    "angular-messages": "^1.4.8",
+    "angular-openlayers-directive": "^1.8.1",
+    "angular-sanitize": "^1.4.8",
+    "openlayers": "^3.12.1",
+    "os-elements": "0.0.2",
+    "proj4": "^2.3.12"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.10",
+    "nib": "^1.1.0",
+    "stylus-loader": "^1.4.3"
+  }
+}

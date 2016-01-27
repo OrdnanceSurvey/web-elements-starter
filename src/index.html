@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>OS Elements</title>
+
+    <!-- demo & libs -->
+    <script type="text/javascript" src="../build/vendor_libs.js"></script>
+    <link rel="stylesheet" href="../build/vendor_libs.css">
+
+    <style>
+
+    </style>
+
+    <style type="text/css">
+        .rotate-north {
+            top: 65px;
+            left: .5em;
+        }
+
+        .ol-touch .rotate-north {
+            top: 80px;
+        }
+    </style>
+
+</head>
+<body layout="column" flex ng-controller="map-ctrl as ctrl">
+
+<md-toolbar class='header'>
+    <div class="md-toolbar-tools">
+        <h1>OS Elements Starter Application</h1>
+    </div>
+</md-toolbar>
+
+<section layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 menubar" md-component-id="left" md-is-locked-open="true"
+                layout="column">
+        <md-content layout-padding>
+            <md-radio-group ng-model="ctrl.selectedLayer">
+                <md-radio-button ng-repeat="layer in ctrl.layers" ng-value="layer">{{layer.name}}</md-radio-button>
+            </md-radio-group>
+        </md-content>
+
+    </md-sidenav>
+    <md-content flex layout="row">
+        <div flex>
+            <openlayers max-size ol-center="ctrl.center" ol-defaults="ctrl.defaults" ol-view="ctrl.view"
+                        custom-layers="true" width="100%" height="100%">
+                <ol-layer name="{{ ctrl.selectedLayer.name }}" ol-layer-properties="ctrl.selectedLayer"></ol-layer>
+                <ol-layer ng-repeat="layer in ctrl.drawingLayers" name="{{ layer.name }}" ol-layer-properties="layer"></ol-layer>
+                <os-map-controls>
+                    <os-control os-control-type="polygon"
+                                os-control-properties="ctrl.osPolygon"
+                                uxlayer="ctrl.drawingLayers[0]"
+                                style="position: absolute; top: 100px;"></os-control>
+
+                </os-map-controls>
+            </openlayers>
+        </div>
+    </md-content>
+</section>
+
+
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/app.constants.js"></script>
+<script type="text/javascript" src="app/projection.service.js"></script>
+<script type="text/javascript" src="app/map.controller.js"></script>
+<script type="text/javascript" src="app/os-control.directive.js"></script>
+<script type="text/javascript" src="app/max-size.directive.js"></script>
+<script type="text/javascript" src="app/app.bootstrap.js"></script>
+
+
+</body>
+</html>
