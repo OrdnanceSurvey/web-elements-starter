@@ -43,7 +43,7 @@
         ];
         vm.drawingLayers = [
             {
-                name: 'polygons',
+                name: 'drawing layer',
                 source: {
                     type: 'GeoJSON',
                     geojson: {
@@ -56,13 +56,13 @@
                                     "geometries": [
                                         {
                                             "type": "Polygon",
-                                            //"coordinates": [[[434179.68749999994, 122450.25634765625], [431958.00781249994, 119355.77392578125], [437551.87988281244, 117630.0048828125], [438960.2661132812, 121101.37939453125], [434179.68749999994, 122450.25634765625]]]
-                                            "coordinates": []
+                                            "coordinates": [[[434179.68749999994, 122450.25634765625], [431958.00781249994, 119355.77392578125], [437551.87988281244, 117630.0048828125], [438960.2661132812, 121101.37939453125], [434179.68749999994, 122450.25634765625]]]
+                                            //"coordinates": []
                                         },
                                         {
                                             "type": "MultiPoint",
-                                            //"coordinates": [[434179.68749999994, 122450.25634765625], [431958.00781249994, 119355.77392578125], [437551.87988281244, 117630.0048828125], [438960.2661132812, 121101.37939453125], [434179.68749999994, 122450.25634765625]]
-                                            "coordinates": []
+                                            "coordinates": [[434179.68749999994, 122450.25634765625], [431958.00781249994, 119355.77392578125], [437551.87988281244, 117630.0048828125], [438960.2661132812, 121101.37939453125], [434179.68749999994, 122450.25634765625]]
+                                            //"coordinates": []
                                         }
                                     ]
                                 },
@@ -114,12 +114,30 @@
                 "EPSG:27700:12",
                 "EPSG:27700:13"
             ];
+            //return {
+            //    name: layerName,
+            //    source: {
+            //        type: 'XYZ',
+            //        url: 'https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/zxy/EPSG%3A27700/' + layerName + ' 27700/{z}/{x}/{y}.png?key=DxmIZsYaEDzTs1ESrTzDNZrmxhCJNGq2',
+            //        projection: 'EPSG:27700',
+            //        tileGrid: {
+            //            origin: [-238375.0, 1376256.0],
+            //            resolutions: [896.0, 448.0, 224.0, 112.0, 56.0, 28.0, 14.0, 7.0, 3.5, 1.75, 0.875, 0.4375, 0.21875, 0.109375],
+            //            matrixIds: matrixIds
+            //        }
+            //    },
+            //    visible: true,
+            //    opacity: 1
+            //}
             return {
                 name: layerName,
                 source: {
-                    type: 'XYZ',
-                    url: 'https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/zxy/EPSG%3A27700/' + layerName + ' 27700/{z}/{x}/{y}.png?key=INSERT_KEY_HERE',
+                    type: 'WMTS',// https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/wmts?key=YOUR_APP_KEY
+                    url: 'https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/wmts?key=DxmIZsYaEDzTs1ESrTzDNZrmxhCJNGq2&height=256&width=256',
                     projection: 'EPSG:27700',
+                    layer: 'Outdoor 27700',
+                    matrixSet: 'EPSG:27700',
+                    format: 'image/png',
                     tileGrid: {
                         origin: [-238375.0, 1376256.0],
                         resolutions: [896.0, 448.0, 224.0, 112.0, 56.0, 28.0, 14.0, 7.0, 3.5, 1.75, 0.875, 0.4375, 0.21875, 0.109375],

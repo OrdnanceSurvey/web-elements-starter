@@ -42,13 +42,13 @@
             <md-radio-group ng-model="ctrl.selectedLayer">
                 <md-radio-button ng-repeat="layer in ctrl.layers" ng-value="layer">{{layer.name}}</md-radio-button>
             </md-radio-group>
+            <pre>{{ctrl.drawingLayers[0].source.geojson.object.features[0].geometry | json}}</pre>
         </md-content>
 
     </md-sidenav>
     <md-content flex layout="row">
         <div flex>
-            <openlayers max-size ol-center="ctrl.center" ol-defaults="ctrl.defaults" ol-view="ctrl.view"
-                        custom-layers="true" width="100%" height="100%">
+            <openlayers os-map-max-size ol-center="ctrl.center" ol-defaults="ctrl.defaults" ol-view="ctrl.view" custom-layers="true" width="100%" height="100%">
                 <ol-layer name="{{ ctrl.selectedLayer.name }}" ol-layer-properties="ctrl.selectedLayer"></ol-layer>
                 <ol-layer ng-repeat="layer in ctrl.drawingLayers" name="{{ layer.name }}" ol-layer-properties="layer"></ol-layer>
                 <os-map-controls>
@@ -59,6 +59,8 @@
 
                 </os-map-controls>
             </openlayers>
+
+            <!--<openlayers max-size width="100%" height="100%"></openlayers>-->
         </div>
     </md-content>
 </section>
@@ -68,8 +70,8 @@
 <script type="text/javascript" src="app/app.constants.js"></script>
 <script type="text/javascript" src="app/projection.service.js"></script>
 <script type="text/javascript" src="app/map.controller.js"></script>
-<script type="text/javascript" src="app/os-control.directive.js"></script>
-<script type="text/javascript" src="app/max-size.directive.js"></script>
+<!--<script type="text/javascript" src="app/os-control.directive.js"></script>-->
+<!--<script type="text/javascript" src="app/max-size.directive.js"></script>-->
 <script type="text/javascript" src="app/app.bootstrap.js"></script>
 
 

@@ -5,7 +5,7 @@ function OsControl(olData) {
         scope: {},
         require: '^openlayers',
         controllerAs: 'ctrl',
-        template: '<os-button variation="solid" colour="primary" ng-click="ctrl.toggle()">{{ctrl.type}}</os-button>',
+        template: '<os-button variation="outline" colour="primary" ng-click="ctrl.toggle()">{{ctrl.type}}</os-button>',
         bindToController: {
             properties: '=osControlProperties',
             type: '@osControlType',
@@ -76,7 +76,7 @@ function OsControl(olData) {
 
             function getPolygonSource(map) {
                 return map.getLayers().getArray().filter(function(layer) {
-                    return layer.getProperties().name === 'polygons';
+                    return layer.getProperties().name === vm.uxlayer.name;
                 })[0];
             }
 

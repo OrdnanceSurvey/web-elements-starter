@@ -1,5 +1,6 @@
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var webpack = require('webpack');
 
 var destFolder = '/build';
 
@@ -33,14 +34,15 @@ var config = {
 
             './node_modules/openlayers/css/ol.css',
 
+
+
+            './node_modules/angular-openlayers-directive', // ol v3.8.2
+
             './node_modules/os-elements/build/elements.js',
-            './node_modules/os-elements/build/elements.css',
-
-            'angular-openlayers-directive' // ol v3.8.2
-
-
+            './node_modules/os-elements/build/elements.css'
 
             //'./node_modules/angular-openlayers-directive/dist/angular-openlayers-directive.js'
+            //'./node_modules/angular-openlayers-directive'
         ]
     },
 
@@ -62,6 +64,10 @@ var config = {
     //    /ol/
     //],
 
+    externals: {
+        'ol': 'openlayers'
+    },
+
     // modles to compile .less and include .css
     // in the .ts use code like: require('./button.less');
     module: {
@@ -71,14 +77,20 @@ var config = {
         }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract('style', 'css!less')
+        }, {
+            test: /angular-openlayers-directive/,
+            loader: 'imports?define=>false,this=>window'
         }],
         //noParse: /(ol\.js|angular-openlayers-directive\.js)/
-        noParse: /(ol\.js|ol-debug\.js|proj4\.js)/
+        noParse: /(ol\.js|ol-debug\.js|proj4\.js|angular-openlayers-directive\.js)/
     },
 
     // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
     plugins: [
-        new ExtractTextPlugin("[name].css")
+        new ExtractTextPlugin("[name].css"),
+        new webpack.ProvidePlugin({
+            'ol': './node_modules/angular-openlayers-directive/node_modules/openlayers/dist/ol-debug.js'
+        })
     ]
 };
 
