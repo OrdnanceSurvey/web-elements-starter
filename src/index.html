@@ -7,27 +7,11 @@
 
     <title>OS Elements</title>
 
-    <!-- demo & libs -->
-    <script type="text/javascript" src="../build/vendor_libs.js"></script>
+    <script type="text/javascript" src="../build/vendor_libs.bundle.js"></script>
     <link rel="stylesheet" href="../build/vendor_libs.css">
 
-    <style>
-
-    </style>
-
-    <style type="text/css">
-        .rotate-north {
-            top: 65px;
-            left: .5em;
-        }
-
-        .ol-touch .rotate-north {
-            top: 80px;
-        }
-    </style>
-
 </head>
-<body layout="column" flex ng-controller="map-ctrl as ctrl">
+<body layout="column" flex ng-controller="map-ctrl as ctrl" class="ng-cloak">
 
 <md-toolbar class='header'>
     <div class="md-toolbar-tools">
@@ -42,38 +26,30 @@
             <md-radio-group ng-model="ctrl.selectedLayer">
                 <md-radio-button ng-repeat="layer in ctrl.layers" ng-value="layer">{{layer.name}}</md-radio-button>
             </md-radio-group>
+            <pre>{{ctrl.drawingLayers[0].style | json}}</pre>
             <pre>{{ctrl.drawingLayers[0].source.geojson.object.features[0].geometry | json}}</pre>
         </md-content>
 
     </md-sidenav>
     <md-content flex layout="row">
         <div flex>
-            <openlayers os-map-max-size ol-center="ctrl.center" ol-defaults="ctrl.defaults" ol-view="ctrl.view" custom-layers="true" width="100%" height="100%">
+            <openlayers os-max-size ol-center="ctrl.center" ol-defaults="ctrl.defaults" ol-view="ctrl.view" custom-layers="true" width="100%" height="100%">
                 <ol-layer name="{{ ctrl.selectedLayer.name }}" ol-layer-properties="ctrl.selectedLayer"></ol-layer>
                 <ol-layer ng-repeat="layer in ctrl.drawingLayers" name="{{ layer.name }}" ol-layer-properties="layer"></ol-layer>
                 <os-map-controls>
-                    <os-control os-control-type="polygon"
-                                os-control-properties="ctrl.osPolygon"
-                                uxlayer="ctrl.drawingLayers[0]"
-                                style="position: absolute; top: 100px;"></os-control>
 
+                    <os-map-control-polygon
+                                os-feature-layer="ctrl.drawingLayers[0]"
+                                style="position: absolute; top: 100px;"></os-map-control-polygon>
                 </os-map-controls>
             </openlayers>
 
-            <!--<openlayers max-size width="100%" height="100%"></openlayers>-->
         </div>
     </md-content>
 </section>
 
+<script type="text/javascript" src="../build/app.js"></script>
 
-<script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/app.constants.js"></script>
-<script type="text/javascript" src="app/projection.service.js"></script>
-<script type="text/javascript" src="app/map.controller.js"></script>
-<!--<script type="text/javascript" src="app/os-control.directive.js"></script>-->
-<!--<script type="text/javascript" src="app/max-size.directive.js"></script>-->
-<script type="text/javascript" src="app/app.bootstrap.js"></script>
-
-
+<script src="http://localhost:35729/livereload.js"></script>
 </body>
 </html>

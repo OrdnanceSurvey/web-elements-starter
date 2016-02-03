@@ -1,8 +1,16 @@
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var LiveReloadPlugin = require('webpack-livereload-plugin');
 var webpack = require('webpack');
 
 var destFolder = '/build';
+
+var olExternals = {
+    root: 'ol',
+    commonjs2: 'openlayers',
+    commonjs: 'openlayers',
+    amd: 'openlayers'
+};
 
 var config = {
     context: __dirname,
@@ -18,6 +26,8 @@ var config = {
 
     entry: {
         'vendor_libs': [
+            'proj4',
+            'openlayers',
             'angular',
             'angular-animate',
             'angular-aria',
@@ -26,31 +36,26 @@ var config = {
             'angular-material',
             'angular-sanitize',
             './node_modules/angular-material/angular-material.css',
-            'proj4',
-            //'openlayers', // v3.12.1
-            //'./node_modules/openlayers/dist/ol.js',
 
-            './ol-wrapper.js', // v3.12.1
 
             './node_modules/openlayers/css/ol.css',
 
 
 
-            './node_modules/angular-openlayers-directive', // ol v3.8.2
+            './node_modules/angular-openlayers-directive',
+
 
             './node_modules/os-elements/build/elements.js',
             './node_modules/os-elements/build/elements.css'
-
-            //'./node_modules/angular-openlayers-directive/dist/angular-openlayers-directive.js'
-            //'./node_modules/angular-openlayers-directive'
+        ],
+        'app': [
+            "./src/app/app.js",
+            "./src/app/app.constants.js",
+            "./src/app/projection.service.js",
+            "./src/app/map.controller.js",
+            "./src/app/app.bootstrap.js"
         ]
     },
-
-    //resolve: {
-    //    alias: {
-    //        openlayers: '/node_modules/openlayers/dist/ol.js'
-    //    }
-    //},
 
     output: {
         path: path.join(__dirname, destFolder),
@@ -58,14 +63,6 @@ var config = {
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js',
         libraryTarget: 'umd'
-    },
-
-    //externals: [
-    //    /ol/
-    //],
-
-    externals: {
-        'ol': 'openlayers'
     },
 
     // modles to compile .less and include .css
@@ -77,21 +74,35 @@ var config = {
         }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract('style', 'css!less')
-        }, {
-            test: /angular-openlayers-directive/,
-            loader: 'imports?define=>false,this=>window'
-        }],
+        }
+            //{
+            //test: /(ol\.js|ol-debug\.js)/,
+            //test: require.resolve("./node_modules/openlayers/dist/ol-debug.js"),
+            //loader: 'imports-loader?define=>false'
+        //}
+        ],
         //noParse: /(ol\.js|angular-openlayers-directive\.js)/
-        noParse: /(ol\.js|ol-debug\.js|proj4\.js|angular-openlayers-directive\.js)/
+        //noParse: /(ol\.js|ol-debug\.js|proj4\.js|angular-openlayers-directive\.js)/
+        noParse: /(ol\.js|ol-debug\.js|proj4\.js)/
     },
 
     // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
     plugins: [
         new ExtractTextPlugin("[name].css"),
-        new webpack.ProvidePlugin({
-            'ol': './node_modules/angular-openlayers-directive/node_modules/openlayers/dist/ol-debug.js'
-        })
-    ]
+        new webpack.optimize.OccurenceOrderPlugin(true),
+        new webpack.optimize.CommonsChunkPlugin("vendor_libs", "vendor_libs.bundle.js"),
+        //new webpack.ProvidePlugin({
+        //    'proj4': 'proj4',
+        //    'window.proj4': "proj4"
+        //}),
+        new LiveReloadPlugin()
+    ],
+
+    resolve: {
+        alias: {
+            'openlayers': path.resolve('./node_modules/openlayers/dist/ol-debug.js')
+        }
+    }
 };
 
 module.exports = config;

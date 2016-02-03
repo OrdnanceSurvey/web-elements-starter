@@ -26,18 +26,20 @@
     "angular-openlayers-directive": "OrdnanceSurvey/angular-openlayers-directive#ordnancesurvey",
     "angular-sanitize": "^1.4.9",
     "imports-loader": "^0.6.5",
-    "openlayers": "^3.12.1",
+    "openlayers": "3.8.2",
     "os-elements": "0.0.2",
     "proj4": "^2.3.12"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "imports-loader": "^0.6.5",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.12.10",
     "nib": "^1.1.0",
-    "stylus-loader": "^1.4.3"
+    "style-loader": "^0.13.0",
+    "stylus-loader": "^1.4.3",
+    "webpack": "^1.12.10",
+    "webpack-livereload-plugin": "^0.5.2"
   }
 }

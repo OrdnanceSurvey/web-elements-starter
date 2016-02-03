@@ -135,7 +135,7 @@
                     type: 'WMTS',// https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/wmts?key=YOUR_APP_KEY
                     url: 'https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/wmts?key=DxmIZsYaEDzTs1ESrTzDNZrmxhCJNGq2&height=256&width=256',
                     projection: 'EPSG:27700',
-                    layer: 'Outdoor 27700',
+                    layer: layerName + ' 27700',
                     matrixSet: 'EPSG:27700',
                     format: 'image/png',
                     tileGrid: {
