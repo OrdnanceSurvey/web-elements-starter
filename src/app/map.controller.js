@@ -2,8 +2,8 @@
     "use strict";
     angular.module('starter-app')
         .controller('map-ctrl', MapController);
-    function MapController($log, olData, projection) {
-        this.$inject = ['$log'];
+    function MapController($log, olData, osProjectionService) {
+        this.$inject = ['$log', 'olData', 'osProjectionService'];
 
         var vm = this;
         var viewExtent = [0, 0, 700000, 1300000]; // EPSG:27700 extent
@@ -13,7 +13,7 @@
             lat: OSHQ.lat,
             lon: OSHQ.lon,
             zoom: 8,
-            projection: projection['EPSG:27700']
+            projection: osProjectionService['EPSG:27700']
         };
         vm.defaults = {
             interactions: {
@@ -23,13 +23,13 @@
                 center: [OSHQ.lon, OSHQ.lat],
                 extent: viewExtent,
                 zoom: 9,
-                projection: projection['EPSG:27700']
+                projection: osProjectionService['EPSG:27700']
             }
         };
         vm.view = {
             extent: viewExtent,
             zoom: 9,
-            projection: projection['EPSG:27700']
+            projection: osProjectionService['EPSG:27700']
         };
         vm.osPolygon = {
             name: 'custom polygon'

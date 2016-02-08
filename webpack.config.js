@@ -12,6 +12,13 @@ var olExternals = {
     amd: 'openlayers'
 };
 
+var proj4Externals = {
+    root: 'proj4',
+    commonjs2: 'proj4',
+    commonjs: 'proj4',
+    amd: 'proj4'
+};
+
 var config = {
     context: __dirname,
     debug: true,
@@ -51,7 +58,6 @@ var config = {
         'app': [
             "./src/app/app.js",
             "./src/app/app.constants.js",
-            "./src/app/projection.service.js",
             "./src/app/map.controller.js",
             "./src/app/app.bootstrap.js"
         ]
@@ -100,7 +106,8 @@ var config = {
 
     resolve: {
         alias: {
-            'openlayers': path.resolve('./node_modules/openlayers/dist/ol-debug.js')
+            'openlayers': path.resolve('./node_modules/openlayers/dist/ol-debug.js'),
+            'proj4': path.resolve('./node_modules/proj4/dist/proj4.js')
         }
     }
 };
